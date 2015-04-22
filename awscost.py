@@ -83,6 +83,15 @@ class EC2(AWSCosts):
  
 
 
+    def get_price(self, instance_type):
+        self.instance_type = instance_type
+        self.ret = self._find_item_by_value(self.region_data, self.instance_type)
+        if len(self.ret) < 1:
+            raise self.Ec2InstanceNotFound('Instance not found')
+        else:
+            return self.ret[0]
+
+
 
 
 
