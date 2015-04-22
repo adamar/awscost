@@ -55,6 +55,20 @@ class AWSCosts(object):
         return data
 
 
+    class CustomError(Exception):
+        def __init__(self, arg):
+            self.msg = arg
+
+    class Ec2InstanceNotFound(Exception):
+        def __init__(self, msg):
+            self.msg = msg
+
+    class RegionNotFound(Exception):
+        def __init__(self, msg):
+            self.msg = msg
+
+
+
 
 
 
