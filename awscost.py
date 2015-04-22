@@ -40,4 +40,29 @@ class AWSCosts(object):
         return ret
 
 
+    def _return_file_contents(self, filename):
+        with open(filename, 'r') as content_file:
+            return self._parse_to_json(content_file.read())
+
+
+    def _parse_to_json(self, f):
+        f = re.sub("/\\*[^\x00]+\\*/", "", f, 0, re.M)
+        f = re.sub("([a-zA-Z0-9]+):", "\"\\1\":", f)
+        f = re.sub(";", "\n", f)
+        f = re.sub("callback\(", "", f)
+        f = re.sub("\)$", "", f)
+        data = json.loads(f)
+        return data
+
+
+
+
+
+
+
+
+
+
+
+
 
