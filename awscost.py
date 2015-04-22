@@ -22,5 +22,22 @@ class AWSCosts(object):
         return ret
 
 
+    def _find_item_by_key(self, obj, key):
+        ret = []
+
+        def _recurse(obj):
+            if isinstance(obj, dict):
+                if key in obj:
+                    ret.append(obj)
+                for k, v in obj.iteritems():
+                    _recurse(obj[k])
+            elif isinstance(obj, list):
+                for i in obj:
+                    _recurse(i)
+
+        _recurse(obj)
+
+        return ret
+
 
 
