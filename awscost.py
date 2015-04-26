@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import re
+import json
+import sys
+
 
 class AWSCosts(object):
 
@@ -75,7 +79,7 @@ class EC2(AWSCosts):
 
 
     def __init__(self, region):
-        self.prices = self._return_file_contents('json/ec2/sles-od.min.js')
+        self.prices = self._return_file_contents('json/ec2/windows-shared.min.js')
         self.region = region
         self.region_data = self._find_item_by_value(self.prices, self.region)
         if len(self.region_data) < 1:
@@ -90,8 +94,6 @@ class EC2(AWSCosts):
             raise self.Ec2InstanceNotFound('Instance not found')
         else:
             return self.ret[0]
-
-
 
 
 
