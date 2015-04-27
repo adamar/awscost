@@ -84,20 +84,21 @@ class EC2(AWSCosts):
 
         self.on_demand_instance_map = {
                 'Linux/UNIX': 'json/ec2/linux-od.min.js',
-                'SUSE Linux': '',
-                'Red Hat Linux': '',
-                'Windows': '',
-                'Windows with SQL Standard': '',
-                'Windows with SQL Web': ''
+                'SUSE Linux': 'sles-od.min.js',
+                'Red Hat Linux': 'rhel-od.min.js',
+                'Windows': 'mswin-od.min.js',
+                'Windows with SQL Standard': 'mswinSQL-od.min.js',
+                'Windows with SQL Web': 'mswinSQLWeb-od.min.js'
                 }
         self.reserved_instance_map = {
-                'Linux/UNIX': '',
-                'SUSE Linux': '',
-                'Red Hat Linux': '',
-                'Windows': '',
-                'Windows with SQL Standard': '',
-                'Windows with SQL Web': ''
+                'Linux/UNIX': 'linux-unix-shared.min.js',
+                'SUSE Linux': 'suse-linux-shared.min.js',
+                'Red Hat Linux': 'red-hat-enterprise-linux-shared.min.js',
+                'Windows': 'windows-shared.min.js',
+                'Windows with SQL Standard': 'windows-with-sql-server-standard-shared.min.js',
+                'Windows with SQL Web': 'windows-with-sql-server-web-shared.min.js'
                 }
+           
 
 
     def get_on_demand_instance_price(self, region=None,
