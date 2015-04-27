@@ -78,16 +78,16 @@ class AWSCosts(object):
 class EC2(AWSCosts):
 
 
-    def __init__(self, region):
-        self.prices = self._return_file_contents('json/ec2/windows-shared.min.js')
-        self.region = region
-        self.region_data = self._find_item_by_value(self.prices, self.region)
-        if len(self.region_data) < 1:
-            raise self.RegionNotFound('Region not found')
+    def __init__(self):
+        #self.prices = self._return_file_contents('json/ec2/windows-shared.min.js')
+        #self.region = region
+        #self.region_data = self._find_item_by_value(self.prices, self.region)
+        #if len(self.region_data) < 1:
+        #    raise self.RegionNotFound('Region not found')
  
 
         self.on_demand_instance_map = {
-                'Linux/UNIX': '',
+                'Linux/UNIX': 'json/ec2/linux-od.min.js',
                 'SUSE Linux': '',
                 'Red Hat Linux': '',
                 'Windows': '',
@@ -104,21 +104,35 @@ class EC2(AWSCosts):
                 }
 
 
-    def get_on_demand_instance_price(self, instance_type=None, 
+    def get_on_demand_instance_price(self, region=None,
+                                     instance_type=None, 
                                      product_description=None):
 
         """
         Retreieve the current per hour cost 
         of a specified instance type
 
+        :param region:
+           The region in which the instance is running
 
+        :param instance_type:
+           The instance size
 
+        :param product_description:
+           The OS type of the instance
 
 
         """
 
-
+        self.region = region
         self.instance_type = instance_type
+        self.product_description = product_description
+        self.file_name = self.on_demand_instance_map[self.product_description]
+
+        self.prices = self._return_file_contents(self.file_name)
+
+        self.region_data = self._find_item_by_value(self.prices, self.region)
+
         self.ret = self._find_item_by_value(self.region_data, self.instance_type)
         if len(self.ret) < 1:
             raise self.Ec2InstanceNotFound('Instance not found')
