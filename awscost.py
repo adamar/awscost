@@ -79,12 +79,6 @@ class EC2(AWSCosts):
 
 
     def __init__(self):
-        #self.prices = self._return_file_contents('json/ec2/windows-shared.min.js')
-        #self.region = region
-        #self.region_data = self._find_item_by_value(self.prices, self.region)
-        #if len(self.region_data) < 1:
-        #    raise self.RegionNotFound('Region not found')
- 
 
         self.on_demand_instance_map = {
                 'Linux/UNIX': 'json/ec2/linux-od.min.js',
@@ -132,6 +126,8 @@ class EC2(AWSCosts):
         self.prices = self._return_file_contents(self.file_name)
 
         self.region_data = self._find_item_by_value(self.prices, self.region)
+        if len(self.region_data) < 1:
+            raise self.RegionNotFound('Region not found')
 
         self.ret = self._find_item_by_value(self.region_data, self.instance_type)
         if len(self.ret) < 1:
