@@ -86,6 +86,23 @@ class EC2(AWSCosts):
             raise self.RegionNotFound('Region not found')
  
 
+        self.on_demand_instance_map = {
+                'Linux/UNIX': '',
+                'SUSE Linux': '',
+                'Red Hat Linux': '',
+                'Windows': '',
+                'Windows with SQL Standard': '',
+                'Windows with SQL Web': ''
+                }
+        self.reserved_instance_map = {
+                'Linux/UNIX': '',
+                'SUSE Linux': '',
+                'Red Hat Linux': '',
+                'Windows': '',
+                'Windows with SQL Standard': '',
+                'Windows with SQL Web': ''
+                }
+
 
     def get_on_demand_instance_price(self, instance_type=None, 
                                      product_description=None):
