@@ -63,7 +63,7 @@ class AWSCosts(object):
         def __init__(self, arg):
             self.msg = arg
 
-    class Ec2InstanceNotFound(Exception):
+    class Ec2InstanceTypeNotFound(Exception):
         def __init__(self, msg):
             self.msg = msg
 
@@ -71,7 +71,9 @@ class AWSCosts(object):
         def __init__(self, msg):
             self.msg = msg
 
-
+    class ProductDescriptionNotFound(Exception):
+        def __init__(self, msg):
+            self.msg = msg
 
 
 
@@ -121,8 +123,10 @@ class EC2(AWSCosts):
         self.region = region
         self.instance_type = instance_type
         self.product_description = product_description
-        self.file_name = self.on_demand_instance_map[self.product_description]
 
+        if self.product_description not in self.on_demand_instance_map:
+            raise self.ProductDescriptionNotFound('Product Description not found')
+        self.file_name = self.on_demand_instance_map[self.product_description]
         self.prices = self._return_file_contents(self.file_name)
 
         self.region_data = self._find_item_by_value(self.prices, self.region)
@@ -131,7 +135,7 @@ class EC2(AWSCosts):
 
         self.ret = self._find_item_by_value(self.region_data, self.instance_type)
         if len(self.ret) < 1:
-            raise self.Ec2InstanceNotFound('Instance not found')
+            raise self.Ec2InstanceTypeNotFound('Instance type not found')
         else:
             return self.ret[0]
 
