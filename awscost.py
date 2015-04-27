@@ -87,7 +87,20 @@ class EC2(AWSCosts):
  
 
 
-    def get_price(self, instance_type):
+    def get_on_demand_instance_price(self, instance_type=None, 
+                                     product_description=None):
+
+        """
+        Retreieve the current per hour cost 
+        of a specified instance type
+
+
+
+
+
+        """
+
+
         self.instance_type = instance_type
         self.ret = self._find_item_by_value(self.region_data, self.instance_type)
         if len(self.ret) < 1:
@@ -97,6 +110,14 @@ class EC2(AWSCosts):
 
 
 
+    def get_reserved_instance_price(self, instance_type=None,
+                                    product_description=None,
+                                    offering_type=None):
+        """
+
+
+        """
+        pass
 
 
 
