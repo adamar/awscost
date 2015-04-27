@@ -145,6 +145,20 @@ class EC2(AWSCosts):
                                     product_description=None,
                                     offering_type=None):
         """
+        Retreieve the current per hour cost 
+        of a specified Reserved instance type
+
+        :param region:
+           The region in which the instance is running
+
+        :param instance_type:
+           The instance size
+
+        :param product_description:
+           The OS type of the instance
+
+        :param offering_type:
+           The reservation type
 
 
         """
